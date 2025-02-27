@@ -6,7 +6,7 @@ import csv
 #for exoplanet dataset
 
 #opens dataset and makes it usable, splitting the file line by line
-with open("all_exoplanets_2021.csv", 'r') as f:
+with open("RawData/all_exoplanets_2021.csv", 'r') as f:
     content = f.read()
 
 rows = content.split("\n")
@@ -64,12 +64,25 @@ quartile1 = find_median(discovery_year[:middle])
 quartile3 = find_median(discovery_year[middle + 1:])
 
 #output for important values
-print("length: ", datapoints)
-print("mean ", mean)
-print("variance: ", variance)
-print("median: ", median)
-print("quartile 1: ", quartile1)
-print("quartile 3: ", quartile3)
+values = [
+    ["length", datapoints],
+    ["mean", mean],
+    ["variance", variance],
+    ["median", median],
+    ["quartile1", quartile1],
+    ["quartile3", quartile3],
+]
+
+with open("ProcessedData/Part1/Histogram/values.csv", 'w') as f:
+    csv_writer = csv.writer(f)
+    csv_writer.writerows(values)
+
+# print("length: ", datapoints)
+# print("mean ", mean)
+# print("variance: ", variance)
+# print("median: ", median)
+# print("quartile 1: ", quartile1)
+# print("quartile 3: ", quartile3)
 
 #frequency histogram and customization
 plt.figure(figsize=(6, 8))
@@ -80,7 +93,7 @@ plt.hist(discovery_year, edgecolor="black", bins=discovery_year+[2022])
 plt.title("Number of Exoplanets Discovered Per Year, 1989-2021")
 plt.xlabel("Discovery Year")
 plt.ylabel("Number of Exoplanets")
-plt.savefig("DiscoveryYearHistogram.png")
+plt.savefig("ProcessedData/Part1/Histogram/DiscoveryYearHistogram.png")
 
 #relative frequency histogram and customization
 plt.figure(figsize=(6, 8))
@@ -92,13 +105,13 @@ plt.hist(discovery_year, edgecolor="black", weights=np.ones_like(discovery_year)
 plt.title("Relative Frequency of Number of Exoplanets Discovered Per Year")
 plt.xlabel("Discovery Year")
 plt.ylabel("Frequency of Planets Discovered")
-plt.savefig("RelativeFrequency.png")
+plt.savefig("ProcessedData/Part1/Histogram/RelativeFrequency.png")
 
 table_form = []
 
 for i in range (0, len(discovery_year), 10):
     table_form.append(discovery_year[i : i + 10])
 
-with open("Years.csv", 'w') as f:
+with open("ProcessedData/Part1/Histogram/Years.csv", 'w') as f:
     csv_writer = csv.writer(f)
     csv_writer.writerows(table_form)

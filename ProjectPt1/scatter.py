@@ -6,7 +6,7 @@ import csv
 # for life expectancy vs. hdi dataset
 
 #opens dataset and makes it usable, splitting the file line by line
-with open("hdr_general.csv", 'r') as f:
+with open("RawData/hdr_general.csv", 'r') as f:
     content = f.read()
 
 rows = content.split("\n")
@@ -44,13 +44,13 @@ plt.scatter(hdi, life_expectancy)
 plt.title("Life Expectancy vs. HDI, 2022")
 plt.xlabel("HDI")
 plt.ylabel("Life Expectancy (Years)")
-plt.savefig("HDI_LifeExpectancy.png")
+plt.savefig("ProcessedData/Part1/Scatter/HDI_LifeExpectancy.png")
 
 xy_table = [["X", "Y"]]
 
 for i in range(len(hdi)):
     xy_table.append([hdi[i], life_expectancy[i]])
 
-with open("HDI_LifeExpectancy.csv", 'w') as f:
+with open("ProcessedData/Part1/Scatter/HDI_LifeExpectancy.csv", 'w') as f:
     csv_writer = csv.writer(f)
     csv_writer.writerows(xy_table)
