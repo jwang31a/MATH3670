@@ -91,8 +91,8 @@ plt.xticks(np.arange(1989, 2023, 1.0))
 plt.xlim(1989, 2022)
 plt.hist(discovery_year, edgecolor="black", bins=discovery_year+[2022])
 plt.title("Number of Exoplanets Discovered Per Year, 1989-2021")
-plt.xlabel("Discovery Year")
-plt.ylabel("Number of Exoplanets")
+plt.xlabel("Discovery Year, x")
+plt.ylabel("Number of Exoplanets, H(x)")
 plt.savefig("ProcessedData/Part1/Histogram/DiscoveryYearHistogram.png")
 
 #relative frequency histogram and customization
@@ -103,8 +103,8 @@ plt.xlim(1989, 2022)
 plt.ylim(0, 0.4)
 plt.hist(discovery_year, edgecolor="black", weights=np.ones_like(discovery_year) / len(discovery_year), bins=discovery_year+[2022])
 plt.title("Relative Frequency of Number of Exoplanets Discovered Per Year")
-plt.xlabel("Discovery Year")
-plt.ylabel("Frequency of Planets Discovered")
+plt.xlabel("Discovery Year, x")
+plt.ylabel("Frequency of Planets Discovered, R(x)")
 plt.savefig("ProcessedData/Part1/Histogram/RelativeFrequency.png")
 
 table_form = []
