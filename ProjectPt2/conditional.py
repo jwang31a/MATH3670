@@ -5,32 +5,10 @@ import math
 import random
 import normal
 
-# reusing processed data from part 1: getting list of years
-with open("ProcessedData/Part1/Histogram/Years.csv") as file:
-    content = file.read()
-
-content = content.split("\n")[:-1]
-
-years = []
-
-for row in content:
-    row = row.split(",")
-    for year in row:
-        year = int(year)
-        years.append(year)
-
-# reusing important value data (mean, variance, median, quartile data)
-with open("ProcessedData/Part1/Histogram/values.csv") as file:
-    raw_values = file.read()
-
-raw_values = raw_values.split("\n")[:-1]
-
-values = []
-
-for x in raw_values:
-    values.append(x.split(","))
-
-values = dict(values)
+# reusing processed data from normal
+years = normal.years
+values = normal.values
+relative_dict = normal.relative_dict
 
 # getting the values to plot on the histogram
 x25 = int(values["quartile1"])
@@ -43,7 +21,8 @@ std_dev = float(values["variance"]) ** 0.5
 bound_a = mean - 2 * std_dev
 bound_b = mean + 2 * std_dev
 
-relative_dict = normal.relative_dict
+print("a = " + str(bound_a))
+print("b = " + str(bound_b))
 
 # probability of a
 p_a = 0
@@ -87,7 +66,7 @@ def select_random():
             between_a_b += 1
     return between_a_b
 
-print(select_random())
+print("conditional probability = " + str(select_random()))
 
 #frequency histogram, normal distribution overlay, and customization
 plt.figure(figsize=(6, 8))

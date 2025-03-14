@@ -33,7 +33,7 @@ values = dict(values)
 mean = float(values["mean"])
 std_dev = np.sqrt(float(values["variance"]))
 
-# getting relative frequency from year data
+# getting relative frequency from year data by divinding by number of datapoints
 relative_dict = {}
 
 for year in years:
@@ -45,7 +45,7 @@ for year in years:
 for year in relative_dict:
     relative_dict[year] /= len(years)
 
-# error calculation using formula given
+# error (e1) calculation using formula given
 def error_normal(bin_size):
     normal = norm(mean, std_dev)
     total_error = 0
@@ -57,16 +57,6 @@ def error_normal(bin_size):
         total_error += (bin_sum - normal.pdf(year + bin_size / 2)) ** 2
     total_error **= 0.5
     return total_error
-    # 
-    # sum = 0
-    # normal = norm(mean, std_dev)
-    # start = math.floor(1989 + bin_size / 2)
-    # for year in range(start, 2022, bin_size):
-        # if year in relative_dict.keys():
-            # sum += (relative_dict[year] - normal.pdf(year) * bin_size) ** 2
-        # else:
-            # sum += (0 - normal.pdf(year) * bin_size) ** 2
-    # return (sum ** 0.5)
 
 print("normal")
 print("bin size 1 error: " + str(error_normal(1)))
@@ -85,7 +75,7 @@ plt.ylabel("Number of Exoplanets, R(x)")
 
 plt.hist(years, edgecolor="black", bins=33, range=(1989,2022), density=True, alpha=0.5)
 
-xmin, xmax = plt.xlim() #this has to be after the hist for the right range to show up
+xmin, xmax = plt.xlim()
 x = np.linspace(xmin, xmax, 100)
 p = norm.pdf(x, mean, std_dev)
 
