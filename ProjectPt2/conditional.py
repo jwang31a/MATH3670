@@ -1,7 +1,6 @@
 import numpy as np
 from scipy.stats import norm
 import matplotlib.pyplot as plt
-import math
 import random
 import normal
 

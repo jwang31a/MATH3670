@@ -1,7 +1,6 @@
 import numpy as np
 from scipy.stats import norm
 import matplotlib.pyplot as plt
-import math
 
 # reusing processed data from part 1: getting list of years
 with open("ProcessedData/Part1/Histogram/Years.csv") as file:
@@ -72,7 +71,6 @@ plt.xlim(1989, 2023)
 plt.title("Number of Exoplanets Discovered Per Year, 1989-2021")
 plt.xlabel("Discovery Year, x")
 plt.ylabel("Number of Exoplanets, R(x)")
-
 plt.hist(years, edgecolor="black", bins=33, range=(1989,2022), density=True, alpha=0.5)
 
 xmin, xmax = plt.xlim()
@@ -80,6 +78,5 @@ x = np.linspace(xmin, xmax, 100)
 p = norm.pdf(x, mean, std_dev)
 
 plt.plot(x, p, 'k', linewidth=2) 
-
 plt.savefig("ProcessedData/Part2/Normal/DiscoveryYearHistogram.png")
 

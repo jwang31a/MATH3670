@@ -1,7 +1,6 @@
 import numpy as np
 from scipy.stats import betabinom, expon, lognorm, skewnorm, weibull_max, beta
 import matplotlib.pyplot as plt
-import math
 import normal
 
 # reusing data from normal distribution calculations
@@ -49,13 +48,11 @@ p_a = beta_dist.cdf(bound_b) - beta_dist.cdf(bound_a)
 
 # probability of b
 p_b = 1 - beta_dist.cdf(x75)
-
 print("p(a) and p(b)")
 print(p_a, p_b)
 
 # probability of a and b
 p_ab = p_a + p_b - (1 - beta_dist.cdf(bound_a))
-
 print("p(a and b)")
 print(p_ab)
 
