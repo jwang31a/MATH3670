@@ -33,8 +33,6 @@ values = dict(values)
 mean = float(values["mean"])
 std_dev = np.sqrt(float(values["variance"]))
 
-# print(std_dev)
-
 # getting relative frequency from year data
 relative_dict = {}
 
@@ -49,16 +47,28 @@ for year in relative_dict:
 
 # error calculation using formula given
 def error_normal(bin_size):
-    sum = 0
     normal = norm(mean, std_dev)
-    start = math.floor(1989 + bin_size / 2)
-    for year in range(start, 2022, bin_size):
-        if year in relative_dict.keys():
-            sum += (relative_dict[year] - normal.pdf(year) * bin_size) ** 2
-        else:
-            sum += (0 - normal.pdf(year) * bin_size) ** 2
-    return (sum ** 0.5)
+    total_error = 0
+    for year in range(1989, 2022, bin_size):
+        bin_sum = 0
+        for n in range(year, year + bin_size):
+            if n in relative_dict.keys():
+                bin_sum += relative_dict[n]
+        total_error += (bin_sum - normal.pdf(year + bin_size / 2)) ** 2
+    total_error **= 0.5
+    return total_error
+    # 
+    # sum = 0
+    # normal = norm(mean, std_dev)
+    # start = math.floor(1989 + bin_size / 2)
+    # for year in range(start, 2022, bin_size):
+        # if year in relative_dict.keys():
+            # sum += (relative_dict[year] - normal.pdf(year) * bin_size) ** 2
+        # else:
+            # sum += (0 - normal.pdf(year) * bin_size) ** 2
+    # return (sum ** 0.5)
 
+print("normal")
 print("bin size 1 error: " + str(error_normal(1)))
 print("bin size 2 error: " + str(error_normal(2)))
 print("bin size 3 error: " + str(error_normal(3)))
