@@ -52,7 +52,7 @@ print("p(a) and p(b)")
 print(p_a, p_b)
 
 # probability of a and b
-p_ab = p_a + p_b - (1 - beta_dist.cdf(bound_a))
+p_ab = 1 - beta_dist.cdf(x75)
 print("p(a and b)")
 print(p_ab)
 
