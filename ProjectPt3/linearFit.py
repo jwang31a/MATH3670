@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import math
 
 def getCountryData():
     with open("ProcessedData/Part1/Scatter/HDI_LifeExpectancy.csv", 'r') as f:
@@ -62,8 +63,15 @@ def getHdi():
 def getLife():
     return life_expectancy
 
+print("a, b, n:", a, b, n)
+
 x = np.linspace(0, 1)
 y = b * x + a
+
+x1 = 0.35
+y1 = math.floor((b * x1 + a) * 100) / 100
+x2 = 0.95
+y2 = math.floor((b * x2 + a) * 100) / 100
 
 plt.figure(figsize=(6,8))
 plt.xticks(np.arange(0.3, 1.1, 0.1))
@@ -72,8 +80,11 @@ plt.yticks(np.arange(50, 90, 5))
 plt.ylim(50, 90)
 plt.scatter(hdi, life_expectancy)
 plt.plot(x, y, color="red")
+plt.plot(x1, y1, color="red", marker='o')
+plt.plot(x2, y2, color="red", marker='o')
+plt.annotate(str(x1) + ", " + str(y1), xy=(x1, y1))
+plt.annotate(str(x2) + ", " + str(y2), xy=(x2, y2))
 plt.title("Life Expectancy vs. HDI, 2022")
 plt.xlabel("HDI")
 plt.ylabel("Life Expectancy (Years)")
-plt.savefig("LinearFit.png")
 plt.savefig("ProcessedData/Part3/LinearFit.png")
