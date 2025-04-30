@@ -1,40 +1,29 @@
-#imports for plotting and math tools
+#imports used
 import matplotlib.pyplot as plt
 import numpy as np
 import csv
 
-# for life expectancy vs. hdi dataset
-
-#opens dataset and makes it usable, splitting the file line by line
+#I.B
+#parsing through raw data to get data set in usable state
 with open("RawData/hdr_general.csv", 'r') as f:
     content = f.read()
-
 rows = content.split("\n")
-
 countries = []
-
 for i in range(len(rows)):
     countries.append(rows[i])
-
-#removes description row and blank row at end
 countries = countries[1: len(countries) - 1]
 
-#creates hdi and life expectancy values
+#parsing through filtered data to get relevant hdi and life expectancy data
 hdi = []
 life_expectancy = []
-
 for x in countries:
     country = x.split(",")
-    #filters out data that isn't from 2022
     if country[6] == "2022":
-        #only takes valid hdi and life expectancy data
         if country[7] != "NA" and country[8] != "NA":
             hdi.append(float(country[7]))
             life_expectancy.append(float(country[8]))
 
-#plots scatter plot with hdi and life expectancy data
-#customizes plot size, tick marks, where plot starts and ends, labels, and titles
-#exports plot to another file called HDI_LifeExpectancy.png
+#plots scatter plot
 plt.figure(figsize=(6,8))
 plt.xticks(np.arange(0.3, 1.1, 0.1))
 plt.xlim(0.3, 1.0)
@@ -46,11 +35,10 @@ plt.xlabel("HDI")
 plt.ylabel("Life Expectancy (Years)")
 plt.savefig("ProcessedData/Part1/Scatter/HDI_LifeExpectancy.png")
 
+#saves hdi and life expectancy data for later reuse
 xy_table = [["X", "Y"]]
-
 for i in range(len(hdi)):
     xy_table.append([hdi[i], life_expectancy[i]])
-
 with open("ProcessedData/Part1/Scatter/HDI_LifeExpectancy.csv", 'w') as f:
     csv_writer = csv.writer(f)
     csv_writer.writerows(xy_table)
